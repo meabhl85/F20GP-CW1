@@ -36,7 +36,7 @@ namespace Assets.Scripts.EnemyBehaviour
 
 
         //Bool checks
-        public bool alive = true;
+        public bool alive;
         public bool patrollingEnabled;
 
         //Enemy Sight

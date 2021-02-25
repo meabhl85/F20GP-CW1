@@ -15,12 +15,14 @@ namespace Assets.Scripts.EnemyBehaviour
 		Enemy enemyScript;
 		Renderer rend;
 
+		public bool smEnemy = true;
+
 		void OnEnable()
 		{
 			currentHealth = startingHealth;
 			//animator = GetComponent<Animator>();
 			rend = GetComponent<Renderer>();
-			enemyScript = this.GetComponent<Enemy>();
+			enemyScript = GetComponent<Enemy>();
 		}
 
 		public void TakeDamage(int damageAmount)
@@ -32,16 +34,21 @@ namespace Assets.Scripts.EnemyBehaviour
 
 		private void Die()
 		{
-			//animator.SetBool("Dead", true);
+			//Update Player score
 			score.UpdateScore(100);
 
+			//Set Enemy to black material
 			rend.material.SetColor("_Color", Color.black);
 
-			enemyScript.alive = false;
-			enemyScript._stateMachine.ChangeState(enemyScript.idle);
+			if (smEnemy)
+            {
+				enemyScript.alive = false;
+				enemyScript._stateMachine.ChangeState(enemyScript.idle);
+			}
+			
 			gameManager.KilledEnemy(gameObject);
 
-			Destroy(gameObject, 3.0f);
+			Destroy(gameObject, 2.0f);
 		}
 
 

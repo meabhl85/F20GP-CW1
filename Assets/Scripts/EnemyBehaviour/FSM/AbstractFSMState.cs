@@ -26,24 +26,7 @@ public abstract class AbstractFSMState : ScriptableObject
     protected FsmEnemy _fsmEnemy;
     protected Transform _player;
     protected FiniteStateMachine _fsm;
-
-    //dont have to be attached to a gameobject
-    //should need a gameobjet for each state which is redundant 
-
-    /*
-    ExecutionState _executionState;
-
-    public ExecutionState ExecutionState
-    {
-        get
-        {
-            return _executionState;
-        }
-        protected set
-        {
-            _executionState = value;
-        }
-    }*/
+    protected Renderer _rend;
 
     public ExecutionState ExecutionState { get; protected set; }
     public FSMStateType StateType { get; protected set; }
@@ -111,5 +94,4 @@ public abstract class AbstractFSMState : ScriptableObject
             _player = player;
         }
     }
-
 }

@@ -25,8 +25,11 @@ namespace Assets.Scripts.EnemyBehaviour
             {
                 Debug.Log("ENTERED IDLE STATE");
                 _rend.material.SetColor("_Color", Color.white);
+                _enemy._navMeshAgent.SetDestination(_enemy._navMeshAgent.transform.position);
                 _totalDuration = 0f;
-            } else
+            }
+
+            if (!_enemy.alive)
             {
                 _enemy._navMeshAgent.SetDestination(_enemy._navMeshAgent.transform.position);
             }
@@ -43,7 +46,6 @@ namespace Assets.Scripts.EnemyBehaviour
                 //Player detection
                 _enemy.playerInSight = _enemy.PlayerSeen(_enemy._navMeshAgent.transform, _player, _enemy.maxAngle, _enemy.maxRadius);
                 _enemy.playerInDetectionRadius = Vector3.Distance(_enemy._navMeshAgent.transform.position, _player.position) <= _enemy._detectionRadius;
-
                 
                 if (_totalDuration >= _idleDuration)
                 {
@@ -58,9 +60,10 @@ namespace Assets.Scripts.EnemyBehaviour
                     }
                         
                 }
+
                 //Change to chase state if the player is seen or is close to the enemy
-                else if (_enemy.playerInSight || _enemy.playerInDetectionRadius)
-                { 
+                if (_enemy.playerInSight || _enemy.playerInDetectionRadius)
+                {
                     _stateMachine.ChangeState(_enemy.chase);
                 }
                 

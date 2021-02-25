@@ -14,6 +14,7 @@ public class EnemyCount : MonoBehaviour
     void Start()
     {
         StartCoroutine(FlashText());
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -23,8 +24,9 @@ public class EnemyCount : MonoBehaviour
             timer = Time.time;
             if (timer >= 5)
             {
+                GameManager gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
                 loopActive = false;
-                EnemyCountUpdate(gameManager.deadCount, gameManager.totalEnemies);
+                EnemyCountUpdate(gameManager.deadCount, gm.EnemyCurrentCount());
             }
         }
     }

@@ -16,6 +16,7 @@ namespace Assets.Scripts.EnemyBehaviour
         public List<GameObject> targetPositions;
 
         public float numOfChildrenAtTarget = 0;
+        public int noOfChildren = 5;
 
         // Start is called before the first frame update
         void Start()
@@ -27,12 +28,15 @@ namespace Assets.Scripts.EnemyBehaviour
             System.Random random = new System.Random();
             int randomInt = random.Next(3, 7);
 
+         
             //Spawn Crowd Enemies
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < noOfChildren; i++)
             {
                 Vector3 relativeSpawn = new Vector3(i % 3, 0.33f, i / 2);
                 GameObject temp = Instantiate(childPrefab, transform.position + (relativeSpawn * 6.0f), transform.rotation);
-                
+
+                temp.GetComponent<Enemy>().patrollingEnabled = false;
+                temp.GetComponent<Enemy>().crowdEnemy = true;
                 temp.GetComponent<Enemy>().crowdTarget = gameObject;
                 temp.GetComponent<NavMeshAgent>().speed = randomInt;
 
